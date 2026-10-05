@@ -172,7 +172,7 @@ hdr: types.Header,
 buff: []const u8,
 
 fn readHeader(bytes: *const [@sizeOf(types.Header)]u8) types.Header {
-    var hdr: types.Header = @bitCast(bytes.*);
+    var hdr: types.Header = std.mem.bytesToValue(types.Header, bytes);
     if (builtin.cpu.arch.endian() != std.builtin.Endian.big) {
         std.mem.byteSwapAllFields(types.Header, &hdr);
     }
